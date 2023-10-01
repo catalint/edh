@@ -9,7 +9,8 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "tsc",
+    "publish": "npm version patch && npm run build && npm publish"
   },
   "author": "Catalin Tanasescu",
   "license": "ISC",
