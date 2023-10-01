@@ -4,9 +4,9 @@ import { generateEventId, getPrintableEventStack } from "./lib";
 
 const asyncLocalStorage = new AsyncLocalStorage();
 
-export class EventEmitter<MyEvents> {
+export class EventEmitterH<MyEvents> {
   private handlers: {
-    [EventKey in keyof MyEvents]?: EventHandler<MyEvents[EventKey]>[];
+    [EventKey in keyof MyEvents & string]?: EventHandler<MyEvents[EventKey]>[];
   } = {};
 
   private debugMode: boolean = false;
@@ -15,17 +15,17 @@ export class EventEmitter<MyEvents> {
     this.debugMode = debugMode;
   }
 
-  on<EventKey extends keyof MyEvents>(
+  on<EventKey extends keyof MyEvents & string>(
     event: EventKey,
-    handler: EventHandler<MyEvents[EventKey]>,
+    listener: EventHandler<MyEvents[EventKey]>,
   ): void {
     if (!this.handlers[event]) {
       this.handlers[event] = [];
     }
-    this.handlers[event]?.push(handler);
+    this.handlers[event]?.push(listener);
   }
 
-  async emit<EventKey extends keyof MyEvents>(
+  async emit<EventKey extends keyof MyEvents & string>(
     eventType: EventKey,
     data: MyEvents[EventKey],
   ): Promise<void> {
@@ -49,7 +49,7 @@ export class EventEmitter<MyEvents> {
           await Promise.allSettled(promises);
           if (this.debugMode) {
             console.log(
-              `[EventEmitter] [DONE] Handling all event listeners of ${metadata.eventType}`,
+              `[EventEmitter] [ALL_DONE] Handling all event listeners of ${metadata.eventType}`,
             );
           }
           resolve();
@@ -60,7 +60,7 @@ export class EventEmitter<MyEvents> {
       } else {
         if (this.debugMode) {
           console.log(
-            `[EventEmitter] [DONE] No event listener for ${metadata.eventType}`,
+            `[EventEmitter] [ALL_DONE] No event listener for ${metadata.eventType}`,
           );
         }
         resolve();

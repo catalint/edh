@@ -1,6 +1,6 @@
 // Example usage
 
-import { EventEmitter } from "../src";
+import { EventEmitterH } from "../src";
 
 interface MyEvents {
   userLoggedIn: { username: string };
@@ -9,7 +9,7 @@ interface MyEvents {
   // Add more event types as needed
 }
 
-const eventEmitter = new EventEmitter<MyEvents>();
+const eventEmitter = new EventEmitterH<MyEvents>();
 
 eventEmitter.setDebugMode(true);
 
@@ -25,17 +25,6 @@ eventEmitter.on("userLoggedIn", {
     console.log("User login handling completed.");
   },
 });
-eventEmitter.on("userLoggedIn", {
-  name: "userLoginHandler_copy",
-  await: true,
-  func: async () => {
-    await eventEmitter.emit("messageReceived", {
-      sender: "john_doe",
-      message: "Hello World!",
-    });
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-  },
-});
 
 eventEmitter.on("messageReceived", {
   name: "messageReceivedHandler",
@@ -46,10 +35,6 @@ eventEmitter.on("messageReceived", {
       message: "Hello World!",
     });
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    await eventEmitter.emit("messageReceived2", {
-      sender: "john_doe",
-      message: "Hello World!",
-    });
   },
 });
 

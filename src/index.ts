@@ -1,1 +1,1 @@
-export { EventEmitter } from "./eventEmitter";
+export { EventEmitterH } from "./eventEmitterH";
