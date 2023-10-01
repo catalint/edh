@@ -10,7 +10,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "publish:npm": "npm version patch && npm run build && npm publish"
+    "publish": "npm version patch && npm run build"
   },
   "author": "Catalin Tanasescu",
   "license": "ISC",
