@@ -13,7 +13,14 @@
     "publish:npm": "npm version patch && npm run build && npm publish"
   },
   "author": "Catalin Tanasescu",
-  "license": "ISC",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/catalint/edh.git"
+  },
+  "bugs": {
+    "url": "https://github.com/catalint/edh/issues"
+  },
   "devDependencies": {
     "prettier": "3.0.3",
     "ts-node": "^10.9.1"
